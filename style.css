@@ -11,8 +11,8 @@
 .position-absolute{
     position: absolute;
 }
-.top-0{
-    top: 0px;
+.top-10{
+    top: 10px;
 }
 .mb-16{
     margin-bottom: 16px;
@@ -56,6 +56,10 @@
     font-weight: bold;
 }
 .btn:hover{
+    cursor: pointer;
+    background-color: #84848c;
+}
+.btn:active{
     cursor: pointer;
     background-color: #62626f;
 }

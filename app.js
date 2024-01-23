@@ -12,29 +12,37 @@ buttonInputArea.addEventListener('click',(e) => {
         if(inputSymbol === '='){
             inputSymbol = '';
         }
-        console.log(str);
+        
         str.length>=10? '': str === '-0' ? str -= Number(e.target.textContent) : str += Number(e.target.textContent);
+        console.log(str);
         output.textContent = Number(str)
     }else{
         if(arithmetic.test(e.target.textContent)){
             inputSymbol = e.target.textContent;
-            
-            if(!calculator.total && !calculator.store1 && !calculator.store2 && !str){
+
+            if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-'){
+                calculator.store1 = -0;
                 str = '-0';
                 output.textContent = str;
+                inputSymbol = '';
+                console.log(calculator);
             }else{
                 calculator.store1 = Number(str);
-                outputSymbol.textContent = inputSymbol;
                 str = '';
                 output.textContent = Number(str);
             }
+            outputSymbol.textContent = inputSymbol;
         }else{
             if(e.target.textContent === '='){
-                if(calculator.store1 === 0){
+                
+                if(Object.is(calculator.store1,-0)){
+                    calculator.store2 = Number(str);
+                }else if(Object.is(calculator.store1,0)){
                     calculator.store1 = Number(str);
                 }else{
                     calculator.store2 = Number(str);
                 }
+
                 str = '';
                 
                 if(inputSymbol === '+'){
@@ -46,13 +54,16 @@ buttonInputArea.addEventListener('click',(e) => {
                 }else if(inputSymbol === '/'){
                     calculator.division();
                 }
-
+                console.log(calculator);
                 inputSymbol = '=';
                 outputSymbol.textContent = inputSymbol;
                 output.textContent = calculator.total;
             }else if(e.target.textContent === 'Reset'){
                 reset.call(calculator);
                 output.textContent = calculator.store1;
+                inputSymbol = '';
+                str = '';
+                outputSymbol.textContent = inputSymbol;
                 console.log(calculator);
             }else{
                 if(calculator.store1 === 0 && calculator.store2 === 0){
@@ -91,6 +102,7 @@ function count() {
             }else{
                 this.total = this.store1 - this.store2;
             }
+            console.log(this);
             this.store1 = 0;
             this.store2 = 0;
         },
@@ -109,6 +121,8 @@ function count() {
             }else{
                 this.total = this.store1 / this.store2;
             }
+            this.total === Infinity ? this.total = 0 : isNaN(this.total) ?
+            this.total = 0 : '';
             this.store1 = 0;
             this.store2 = 0;
         }
