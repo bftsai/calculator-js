@@ -8,6 +8,45 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>test</h1>
+    <div class="container">
+        <h1 class="text-center">Calculator</h1>
+        <div class="calculator">
+            <div class="outputArea position-relative mb-32">
+                <div id="outputSymbol" class="position-absolute top-0"></div>
+                <p class="output" id="js-output"></p>
+            </div>
+            <div class="buttonArea" id="buttonInputArea">
+                <div class="d-flex justify-content-between mb-16">
+                    <div class="btn w-210">Reset</div>
+                    <div class="btn">Del</div>
+                    <div class="btn">/</div>
+                </div>
+                <div class="d-flex justify-content-between mb-16">
+                    <div class="btn">7</div>
+                    <div class="btn">8</div>
+                    <div class="btn">9</div>
+                    <div class="btn">*</div>
+                </div>
+                <div class="d-flex justify-content-between mb-16">
+                    <div class="btn">4</div>
+                    <div class="btn">5</div>
+                    <div class="btn">6</div>
+                    <div class="btn">-</div>
+                </div>
+                <div class="d-flex justify-content-between mb-16">
+                    <div class="btn">1</div>
+                    <div class="btn">2</div>
+                    <div class="btn">3</div>
+                    <div class="btn">+</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="btn w-320">0</div>
+                    <div class="btn">=</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
 </body>
 </html>
