@@ -25,7 +25,7 @@ buttonInputArea.addEventListener('click',(e) => {
                     str = '';
                     output.textContent = Number(str);
                 }
-            }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-'){
+            }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-' && !calculator.counting){
                 if(Object.is(calculator.total,-0)){
                     inputSymbol = '-';
                     str = '';
@@ -47,7 +47,6 @@ buttonInputArea.addEventListener('click',(e) => {
             outputSymbol.textContent = inputSymbol;
         }else{
             if(e.target.textContent === '='){
-                
                 if(Object.is(calculator.store1,-0)){
                     calculator.store2 = Number(str);
                 }else if(Object.is(calculator.store1,0)){
@@ -58,6 +57,7 @@ buttonInputArea.addEventListener('click',(e) => {
 
                 str = '';
                 
+                // console.log(calculator.store1,calculator.store2,calculator.total,calculator.counting);
                 if(inputSymbol === '+'){
                     calculator.add();
                 }else if(inputSymbol === '-'){
@@ -100,11 +100,12 @@ buttonInputArea.addEventListener('click',(e) => {
 })
 
 function count() { 
-    let store1 = 0,store2 = 0,total = 0;
+    let store1 = 0,store2 = 0,total = 0,counting = false;
     return {
         total,
         store1,
         store2,
+        counting,
         add(){
             if(this.total){
                 this.total += this.store1;
@@ -113,9 +114,10 @@ function count() {
             }
             this.store1 = 0;
             this.store2 = 0;
+            this.counting = true;
         },
         minus(){
-            if(this.total || Object.is(this.total,-0)){
+            if(this.total || Object.is(this.total,-0) || this.counting){
                 this.total -= this.store1;
             }else{
                 Object.is(this.store1,-0) ? this.store1 = 0 : '';
@@ -123,6 +125,7 @@ function count() {
             }
             this.store1 = 0;
             this.store2 = 0;
+            this.counting = true;
         },
         multiply(){
             if(this.total){
@@ -132,6 +135,7 @@ function count() {
             }
             this.store1 = 0;
             this.store2 = 0;
+            this.counting = true;
         },
         division(){
             if(this.total){
@@ -143,6 +147,7 @@ function count() {
             this.total = 0 : '';
             this.store1 = 0;
             this.store2 = 0;
+            this.counting = true;
         }
     }
 }
@@ -150,4 +155,5 @@ function reset() {
     this.store1 = 0;
     this.store2 = 0;
     this.total = 0;
+    this.counting = false;
 }
