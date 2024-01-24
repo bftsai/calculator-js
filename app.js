@@ -1,98 +1,104 @@
-const output = document.getElementById('js-output')
-const outputSymbol = document.getElementById('outputSymbol')
-const buttonInputArea = document.getElementById('buttonInputArea')
+const output = document.querySelector('.js-output');
+const outputSymbol = document.getElementById('outputSymbol');
+const prompt = document.getElementById('prompt')
+const buttonInputArea = document.getElementById('buttonInputArea');
 
-const calculator = count()
-let str = '',inputSymbol = '';
+const calculator = count();
 output.textContent = calculator.total
 buttonInputArea.addEventListener('click',(e) => {
     const isNum = new RegExp('^[0-9]$');
     const arithmetic = new RegExp('^[+-/\*]$')
     if(isNum.test(Number(e.target.textContent))){
-        if(inputSymbol === '='){
-            inputSymbol = '';
+        if(calculator.inputSymbol === '='){
+            calculator.inputSymbol = '';
         }
         
-        str.length>=10? '': str === '-0' ? str -= Number(e.target.textContent) : str += Number(e.target.textContent);
-        output.textContent = Number(str)
+        calculator.str.length>=10? '': calculator.str === '-0' ? calculator.str -= Number(e.target.textContent) : calculator.str += Number(e.target.textContent);
+        calculator.str.length>=10? prompt.classList.remove('visibility-hidden') : '';
+        output.textContent = Number(calculator.str)
     }else{
         if(arithmetic.test(e.target.textContent)){
-            inputSymbol = e.target.textContent;
+            calculator.inputSymbol = e.target.textContent;
 
-            if(inputSymbol && (calculator.store1 !== 0 || Object.is(calculator.store1,-0))){
-                if(Object.is(calculator.store1,-0) && inputSymbol === '-' && str !== '-0'){
-                    calculator.store1 = Number(str);
-                    str = '';
-                    output.textContent = Number(str);
+            if(calculator.inputSymbol && (calculator.store1 !== 0 || Object.is(calculator.store1,-0))){
+                if(Object.is(calculator.store1,-0) && calculator.inputSymbol === '-' && calculator.str !== '-0'){
+                    calculator.store1 = Number(calculator.str);
+                    calculator.str = '';
+                    output.textContent = Number(calculator.str);
                 }
-            }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-' && !calculator.counting){
+            }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !calculator.str && calculator.inputSymbol === '-' && !calculator.counting){
                 if(Object.is(calculator.total,-0)){
-                    inputSymbol = '-';
-                    str = '';
-                    output.textContent = Number(str);
+                    calculator.inputSymbol = '-';
+                    calculator.str = '';
+                    output.textContent = Number(calculator.str);
                 }else{
                     calculator.store1 = -0;
-                    str = '-0';
-                    output.textContent = str;
-                    inputSymbol = '';
+                    calculator.str = '-0';
+                    output.textContent = calculator.str;
+                    calculator.inputSymbol = '';
                 }
             }else if(calculator.total === 0){
-                calculator.store1 = Number(str);
-                str = '';
-                output.textContent = Number(str);
+                calculator.store1 = Number(calculator.str);
+                calculator.str = '';
+                output.textContent = Number(calculator.str);
             }else{
-                str = '';
-                output.textContent = Number(str);
+                calculator.str = '';
+                output.textContent = Number(calculator.str);
             }
-            outputSymbol.textContent = inputSymbol;
+            outputSymbol.textContent = calculator.inputSymbol;
         }else{
             if(e.target.textContent === '='){
                 if(Object.is(calculator.store1,-0)){
-                    calculator.store2 = Number(str);
+                    calculator.store2 = Number(calculator.str);
                 }else if(Object.is(calculator.store1,0)){
-                    calculator.store1 = Number(str);
+                    calculator.store1 = Number(calculator.str);
                 }else{
-                    calculator.store2 = Number(str);
+                    calculator.store2 = Number(calculator.str);
                 }
 
-                str = '';
+                calculator.str = '';
                 
-                // console.log(calculator.store1,calculator.store2,calculator.total,calculator.counting);
-                if(inputSymbol === '+'){
+                if(calculator.inputSymbol === '+'){
                     calculator.add();
-                }else if(inputSymbol === '-'){
+                }else if(calculator.inputSymbol === '-'){
                     calculator.minus();
-                }else if(inputSymbol === '*'){
+                }else if(calculator.inputSymbol === '*'){
                     calculator.multiply();
-                }else if(inputSymbol === '/'){
+                }else if(calculator.inputSymbol === '/'){
                     if((!calculator.total && calculator.store2 === 0) || (calculator.total && calculator.store1 === 0)){
                         output.textContent = 'Error !';
                         calculator.total = -0;
                         calculator.store1 = 0;
                         calculator.store2 = 0;
-                        inputSymbol = '';
-                        outputSymbol.textContent = inputSymbol;
+                        calculator.inputSymbol = '';
+                        outputSymbol.textContent = calculator.inputSymbol;
                         return;
                     }else{
                         calculator.division();
                     }
                 }
                 
-                inputSymbol = '=';
-                outputSymbol.textContent = inputSymbol;
+                calculator.inputSymbol = '=';
+                outputSymbol.textContent = calculator.inputSymbol;
                 output.textContent = calculator.total;
             }else if(e.target.textContent === 'Reset'){
                 reset.call(calculator);
                 output.textContent = calculator.store1;
-                inputSymbol = '';
-                str = '';
-                outputSymbol.textContent = inputSymbol;
+                calculator.inputSymbol = '';
+                calculator.str = '';
+                outputSymbol.textContent = calculator.inputSymbol;
+                if(calculator.str.length < 10){
+                    prompt.classList.add('visibility-hidden');
+                }
             }else if(e.target.textContent === 'Del'){
-                if(str || str === '-0'){
-                    str === '-0'? str = '' : str = str.slice(0,-1)
-                    output.textContent = Number(str);
+                if(calculator.str || calculator.str === '-0'){
+                    calculator.str === '-0'? calculator.str = '' : calculator.str = calculator.str.slice(0,-1)
+                    output.textContent = Number(calculator.str);
                     
-                    !inputSymbol? calculator.store1 = Number(str) : calculator.store2 = Number(str)
+                    !calculator.inputSymbol? calculator.store1 = Number(calculator.str) : calculator.store2 = Number(calculator.str)
+                    if(calculator.str.length < 10){
+                        prompt.classList.add('visibility-hidden');
+                    }
                 }
             }
         }
@@ -100,12 +106,14 @@ buttonInputArea.addEventListener('click',(e) => {
 })
 
 function count() { 
-    let store1 = 0,store2 = 0,total = 0,counting = false;
+    let store1 = 0,store2 = 0,total = 0,counting = false,inputSymbol = '',str = '';
     return {
         total,
         store1,
         store2,
         counting,
+        inputSymbol,
+        str,
         add(){
             if(this.total){
                 this.total += this.store1;

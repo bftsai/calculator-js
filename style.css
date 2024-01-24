@@ -14,20 +14,36 @@
 .top-10{
     top: 10px;
 }
+.my-0{
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .mb-16{
     margin-bottom: 16px;
 }
 .mb-32{
     margin-bottom: 32px;
 }
+.visibility-hidden{
+    visibility: hidden;
+}
 .d-flex{
     display: flex;
+}
+.flex-wrap{
+    flex-wrap: wrap;
 }
 .justify-content-between{
     justify-content: space-between;
 }
+.text-danger{
+    color: #ff0000;
+}
 .text-center{
     text-align: center;
+}
+.text-end{
+    text-align: right;
 }
 .calculator{
     padding: 30px;
