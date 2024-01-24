@@ -47,7 +47,6 @@ buttonInputArea.addEventListener('click',(e) => {
             outputSymbol.textContent = inputSymbol;
         }else{
             if(e.target.textContent === '='){
-                console.log(calculator);
                 
                 if(Object.is(calculator.store1,-0)){
                     calculator.store2 = Number(str);
@@ -67,14 +66,12 @@ buttonInputArea.addEventListener('click',(e) => {
                     calculator.multiply();
                 }else if(inputSymbol === '/'){
                     if((!calculator.total && calculator.store2 === 0) || (calculator.total && calculator.store1 === 0)){
-                        console.log('work');
                         output.textContent = 'Error !';
                         calculator.total = -0;
                         calculator.store1 = 0;
                         calculator.store2 = 0;
                         inputSymbol = '';
                         outputSymbol.textContent = inputSymbol;
-                        console.log(calculator);
                         return;
                     }else{
                         calculator.division();
@@ -84,7 +81,6 @@ buttonInputArea.addEventListener('click',(e) => {
                 inputSymbol = '=';
                 outputSymbol.textContent = inputSymbol;
                 output.textContent = calculator.total;
-                console.log(calculator);
             }else if(e.target.textContent === 'Reset'){
                 reset.call(calculator);
                 output.textContent = calculator.store1;
