@@ -14,23 +14,30 @@ buttonInputArea.addEventListener('click',(e) => {
         }
         
         str.length>=10? '': str === '-0' ? str -= Number(e.target.textContent) : str += Number(e.target.textContent);
-        console.log(str);
         output.textContent = Number(str)
     }else{
         if(arithmetic.test(e.target.textContent)){
             inputSymbol = e.target.textContent;
 
-            if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-'){
+            if(inputSymbol && (calculator.store1 !== 0 || Object.is(calculator.store1,-0))){
+                if(Object.is(calculator.store1,-0) && inputSymbol === '-' && str !== '-0'){
+                    calculator.store1 = Number(str);
+                    str = '';
+                    output.textContent = Number(str);
+                }
+            }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-'){
                 calculator.store1 = -0;
                 str = '-0';
                 output.textContent = str;
                 inputSymbol = '';
-                console.log(calculator);
-            }else{
+            }else if(calculator.total === 0){
                 calculator.store1 = Number(str);
                 str = '';
                 output.textContent = Number(str);
+            }else{
+                str = '';
             }
+            output.textContent = Number(str);
             outputSymbol.textContent = inputSymbol;
         }else{
             if(e.target.textContent === '='){
@@ -54,7 +61,7 @@ buttonInputArea.addEventListener('click',(e) => {
                 }else if(inputSymbol === '/'){
                     calculator.division();
                 }
-                console.log(calculator);
+                
                 inputSymbol = '=';
                 outputSymbol.textContent = inputSymbol;
                 output.textContent = calculator.total;
@@ -64,17 +71,12 @@ buttonInputArea.addEventListener('click',(e) => {
                 inputSymbol = '';
                 str = '';
                 outputSymbol.textContent = inputSymbol;
-                console.log(calculator);
-            }else{
-                if(calculator.store1 === 0 && calculator.store2 === 0){
-                    return;
-                }
-                if(!calculator.store2 && !inputSymbol){
-                    calculator.store1 = Number(String(calculator.store1).slice(0,-1))
-                    output.textContent = calculator.store1
-                }else{
-                    calculator.store2 = Number(String(calculator.store2).slice(0,-1))
-                    output.textContent = calculator.store2
+            }else if(e.target.textContent === 'Del'){
+                if(str || str === '-0'){
+                    str === '-0'? str = '' : str = str.slice(0,-1)
+                    output.textContent = Number(str);
+                    
+                    !inputSymbol? calculator.store1 = Number(str) : calculator.store2 = Number(str)
                 }
             }
         }
@@ -100,9 +102,9 @@ function count() {
             if(this.total){
                 this.total -= this.store1;
             }else{
-                this.total = this.store1 - this.store2;
+                Object.is(this.store1,-0) ? this.store1 = 0 : '';
+                this.store2<0 ? this.total = this.store1 + this.store2 : this.total = this.store1 - this.store2;;
             }
-            console.log(this);
             this.store1 = 0;
             this.store2 = 0;
         },
