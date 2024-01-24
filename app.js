@@ -26,21 +26,28 @@ buttonInputArea.addEventListener('click',(e) => {
                     output.textContent = Number(str);
                 }
             }else if(!calculator.total && !calculator.store1 && !calculator.store2 && !str && inputSymbol === '-'){
-                calculator.store1 = -0;
-                str = '-0';
-                output.textContent = str;
-                inputSymbol = '';
+                if(Object.is(calculator.total,-0)){
+                    inputSymbol = '-';
+                    str = '';
+                    output.textContent = Number(str);
+                }else{
+                    calculator.store1 = -0;
+                    str = '-0';
+                    output.textContent = str;
+                    inputSymbol = '';
+                }
             }else if(calculator.total === 0){
                 calculator.store1 = Number(str);
                 str = '';
                 output.textContent = Number(str);
             }else{
                 str = '';
+                output.textContent = Number(str);
             }
-            output.textContent = Number(str);
             outputSymbol.textContent = inputSymbol;
         }else{
             if(e.target.textContent === '='){
+                console.log(calculator);
                 
                 if(Object.is(calculator.store1,-0)){
                     calculator.store2 = Number(str);
@@ -59,12 +66,25 @@ buttonInputArea.addEventListener('click',(e) => {
                 }else if(inputSymbol === '*'){
                     calculator.multiply();
                 }else if(inputSymbol === '/'){
-                    calculator.division();
+                    if((!calculator.total && calculator.store2 === 0) || (calculator.total && calculator.store1 === 0)){
+                        console.log('work');
+                        output.textContent = 'Error !';
+                        calculator.total = -0;
+                        calculator.store1 = 0;
+                        calculator.store2 = 0;
+                        inputSymbol = '';
+                        outputSymbol.textContent = inputSymbol;
+                        console.log(calculator);
+                        return;
+                    }else{
+                        calculator.division();
+                    }
                 }
                 
                 inputSymbol = '=';
                 outputSymbol.textContent = inputSymbol;
                 output.textContent = calculator.total;
+                console.log(calculator);
             }else if(e.target.textContent === 'Reset'){
                 reset.call(calculator);
                 output.textContent = calculator.store1;
@@ -99,7 +119,7 @@ function count() {
             this.store2 = 0;
         },
         minus(){
-            if(this.total){
+            if(this.total || Object.is(this.total,-0)){
                 this.total -= this.store1;
             }else{
                 Object.is(this.store1,-0) ? this.store1 = 0 : '';
