@@ -36,7 +36,7 @@
     border-radius: 10px;
     animation: border-linear 5s linear infinite both;
 }
-@keyframes border-linear {
+@-webkit-keyframes border-linear {
     0% {
         border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
         border-image-slice: 1;
