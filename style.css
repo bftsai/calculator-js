@@ -52,49 +52,49 @@
     border-radius: 10px;
     animation: border-linear 5s linear infinite both;
 }
-@-webkit-keyframes border-linear {
+@keyframes border-linear {
     0% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
         border-image-slice: 1;
     }
     10% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
         border-image-slice: 1;
     }
     20% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
         border-image-slice: 1;
     }
     30% {
-        border-image:linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
+        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
         border-image-slice: 1;
     }
     40% {
-        border-image:linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
+        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
         border-image-slice: 1;
     }
     50% {
-        border-image:linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 100%);
+        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 100%);
         border-image-slice: 1;
     }
     60% {
-        border-image:linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
+        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
         border-image-slice: 1;
     }
     70% {
-        border-image:linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
+        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
         border-image-slice: 1;
     }
     80% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
         border-image-slice: 1;
     } 
     90% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
         border-image-slice: 1;
     }
     100% {
-        border-image:linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
+        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
         border-image-slice: 1
     }
 }
@@ -103,7 +103,7 @@
     padding: 16px;
     border-radius: 10px;
 }
-.output{
+.js-output{
     text-align: right;
     font-weight: bold;
     font-size: 32px;
@@ -120,7 +120,7 @@
 }
 .btn:hover{
     cursor: pointer;
-    background-color: #84848c;
+    background-color: #a6a6ad;
 }
 .btn:active{
     cursor: pointer;
