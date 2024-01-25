@@ -48,55 +48,8 @@
 .calculator{
     padding: 30px;
     width: 500px;
-    border: 5px solid transparent;
+    border: 5px solid #000;
     border-radius: 10px;
-    animation: border-linear 5s linear infinite both;
-}
-@keyframes border-linear {
-    0% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
-        border-image-slice: 1;
-    }
-    10% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
-        border-image-slice: 1;
-    }
-    20% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
-        border-image-slice: 1;
-    }
-    30% {
-        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
-        border-image-slice: 1;
-    }
-    40% {
-        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
-        border-image-slice: 1;
-    }
-    50% {
-        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 100%);
-        border-image-slice: 1;
-    }
-    60% {
-        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 80%);
-        border-image-slice: 1;
-    }
-    70% {
-        border-image: linear-gradient(to bottom right, rgb(192, 182, 182) 0%, rgb(0, 0, 0) 60%);
-        border-image-slice: 1;
-    }
-    80% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 60%);
-        border-image-slice: 1;
-    } 
-    90% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 30%);
-        border-image-slice: 1;
-    }
-    100% {
-        border-image: linear-gradient(to bottom right, rgb(0, 0, 0) 0%, rgb(192, 182, 182) 10%);
-        border-image-slice: 1
-    }
 }
 .outputArea{
     border: 2px solid #000;
