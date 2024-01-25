@@ -80,7 +80,8 @@ function reset() {
     this.counting = false;
 }
 function checkTotal(){
-    if((String(this.total).length > 10 && !String(this.total).includes('.')) || (String(this.total).length > 11 && String(this.total).includes('.'))){
+    const reg = new RegExp('^-?[\\d]{1,10}$');
+    if(!reg.test(String(this.total))){
         alert('數值過大無法計算');
         reset.call(calculator);
     }
@@ -93,10 +94,15 @@ buttonInputArea.addEventListener('click',(e) => {
     const isNum = new RegExp('^[0-9]$');
     const arithmetic = new RegExp('^[+-/\*]$');
     if(isNum.test(Number(e.target.textContent))){
-        calculator.str.length>=10? prompt.classList.remove('visibility-hidden') : calculator.str += Number(e.target.textContent);
-        output.textContent = Number(calculator.str);
+        const reg = new RegExp('^-?[\\d]{1,9}$');
+        
+        
+        reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
+
+        Object.is(Number(calculator.str),-0)? output.textContent = '-0' : output.textContent = Number(calculator.str);
     }else{
         if(arithmetic.test(e.target.textContent)){
+            prompt.classList.add('visibility-hidden');
             if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
             }else{
@@ -109,6 +115,7 @@ buttonInputArea.addEventListener('click',(e) => {
             outputSymbol.textContent = calculator.inputSymbol;
         }else{
             if(e.target.textContent === '='){
+                prompt.classList.add('visibility-hidden');
                 calculator.counting? calculator.store1 = Number(calculator.str) : calculator.store2 = Number(calculator.str);
 
                 if(calculator.store2 < 0 ){
@@ -133,7 +140,7 @@ buttonInputArea.addEventListener('click',(e) => {
                         break;
                 }
                 checkTotal.call(calculator);
-
+                
                 outputSymbol.textContent = calculator.inputSymbol;
                 output.textContent = calculator.total;
             }else if(e.target.textContent === 'Reset'){
