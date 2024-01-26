@@ -68,7 +68,7 @@ function calculatorClosure() {
         },
         switchSymbol(symbol){
             this.inputSymbol = symbol;
-        }
+        },
     }
 }
 function reset() { 
@@ -103,7 +103,10 @@ buttonInputArea.addEventListener('click',(e) => {
     }else{
         if(arithmetic.test(e.target.textContent)){
             prompt.classList.add('visibility-hidden');
-            if(calculator.counting){
+            // 去掉 107 行判斷式，可開啟切換符號改變 + - * /
+            if(arithmetic.test(calculator.inputSymbol)){
+                return;
+            }else if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
             }else{
                 e.target.textContent === '-' && !calculator.str? '' : calculator.switchSymbol(e.target.textContent);
