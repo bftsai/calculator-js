@@ -80,10 +80,19 @@ function reset() {
     this.counting = false;
 }
 function checkTotal(){
-    const reg = new RegExp('^-?[\\d]{1,10}$');
-    if(!reg.test(String(this.total))){
-        alert('數值過大無法計算');
+    const regInt = new RegExp('^-?[\\d]{0,10}$');
+    const regFloat = new RegExp('^-?\\d{0,10}.[\\d]{0,2}$');
+    
+    if(String(this.total).includes('.')){
+      if(!regFloat.test(this.total)){
         reset.call(calculator);
+        alert('數值過大，無法計算！！！');
+      }
+    }else{
+      if(!regInt.test(this.total)){
+        reset.call(calculator);
+        alert('數值過大，無法計算！！！');
+      }
     }
 }
 
