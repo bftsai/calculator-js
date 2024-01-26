@@ -56,15 +56,17 @@ function calculatorClosure() {
             }
             Number(String(this.total).split('.')[1])? '' : this.total = (this.total/1).toFixed(0);
 
-            if(this.total === 'Infinity' || isNaN(this.total)){
-                this.total = 0;
-                alert('除數不得為零！！！');
-            }
-            
             this.store1 = 0;
             this.store2 = 0;
             this.inputSymbol = '=';
             this.str = '';
+
+            if(this.total === 'Infinity' || isNaN(this.total)){
+                reset.call(calculator);
+                alert('除數不得為零！！！');
+            }
+            console.log(calculator);
+            
         },
         switchSymbol(symbol){
             this.inputSymbol = symbol;
@@ -105,7 +107,6 @@ buttonInputArea.addEventListener('click',(e) => {
     if(isNum.test(Number(e.target.textContent))){
         const reg = new RegExp('^-?[\\d]{1,9}$');
         
-        
         reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
 
         Object.is(Number(calculator.str),-0)? output.textContent = '-0' : output.textContent = Number(calculator.str);
@@ -115,6 +116,10 @@ buttonInputArea.addEventListener('click',(e) => {
             // 去掉 107 行判斷式，可開啟切換符號改變 + - * /
             if(arithmetic.test(calculator.inputSymbol)){
                 return;
+            }else if(calculator.inputSymbol === '=' && calculator.str){
+                calculator.switchSymbol(e.target.textContent);
+                console.log(calculator);
+                calculator.total = Number(calculator.str);
             }else if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
             }else{
