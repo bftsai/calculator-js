@@ -65,8 +65,6 @@ function calculatorClosure() {
                 reset.call(calculator);
                 alert('除數不得為零！！！');
             }
-            console.log(calculator);
-            
         },
         switchSymbol(symbol){
             this.inputSymbol = symbol;
@@ -109,6 +107,13 @@ buttonInputArea.addEventListener('click',(e) => {
         
         reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
 
+        if(calculator.inputSymbol === '=' && Number(calculator.str)){
+            calculator.total = 0;
+            calculator.counting = false;
+            calculator.inputSymbol = '';
+            outputSymbol.textContent = calculator.inputSymbol;
+        }
+
         Object.is(Number(calculator.str),-0)? output.textContent = '-0' : output.textContent = Number(calculator.str);
     }else{
         if(arithmetic.test(e.target.textContent)){
@@ -118,7 +123,6 @@ buttonInputArea.addEventListener('click',(e) => {
                 return;
             }else if(calculator.inputSymbol === '=' && calculator.str){
                 calculator.switchSymbol(e.target.textContent);
-                console.log(calculator);
                 calculator.total = Number(calculator.str);
             }else if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
