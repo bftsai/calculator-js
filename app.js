@@ -104,16 +104,17 @@ buttonInputArea.addEventListener('click',(e) => {
     const arithmetic = new RegExp('^[+-/\*]$');
     if(isNum.test(Number(e.target.textContent))){
         const reg = new RegExp('^-?[\\d]{1,9}$');
-        
-        reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
 
-        if(calculator.inputSymbol === '=' && Number(calculator.str)){
+        if(calculator.inputSymbol === '='){
+            calculator.str = String(calculator.total);
             calculator.total = 0;
             calculator.counting = false;
             calculator.inputSymbol = '';
             outputSymbol.textContent = calculator.inputSymbol;
         }
-
+        
+        reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
+        console.log(calculator);
         Object.is(Number(calculator.str),-0)? output.textContent = '-0' : output.textContent = Number(calculator.str);
     }else{
         if(arithmetic.test(e.target.textContent)){
