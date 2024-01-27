@@ -114,7 +114,6 @@ buttonInputArea.addEventListener('click',(e) => {
         }
         
         reg.test(Number(calculator.str))? calculator.str += Number(e.target.textContent) : prompt.classList.remove('visibility-hidden');
-        console.log(calculator);
         Object.is(Number(calculator.str),-0)? output.textContent = '-0' : output.textContent = Number(calculator.str);
     }else{
         if(arithmetic.test(e.target.textContent)){
