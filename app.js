@@ -25,11 +25,16 @@ function calculatorClosure() {
             this.counting = true;
         },
         minus(){
-            if(this.total || Object.is(this.total,-0) || this.counting){
+            // if(this.total || Object.is(this.total,-0) || this.counting){
+            //     this.total -= this.store1;
+            // }else{
+            //     Object.is(this.store1,-0) ? this.store1 = 0 : '';
+            //     this.store2<0 ? this.total = this.store1 + this.store2 : this.total = this.store1 - this.store2;;
+            // }
+            if(this.total){
                 this.total -= this.store1;
             }else{
-                Object.is(this.store1,-0) ? this.store1 = 0 : '';
-                this.store2<0 ? this.total = this.store1 + this.store2 : this.total = this.store1 - this.store2;;
+                this.total = this.store1 - this.store2;
             }
             this.store1 = 0;
             this.store2 = 0;
@@ -127,12 +132,16 @@ buttonInputArea.addEventListener('click',(e) => {
             }else if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
             }else{
-                e.target.textContent === '-' && !calculator.str? '' : calculator.switchSymbol(e.target.textContent);
-                calculator.store1 || Object.is(calculator.store1,-0)? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
+                // e.target.textContent === '-' && !calculator.str? '' : calculator.switchSymbol(e.target.textContent);
+                // calculator.store1 || Object.is(calculator.store1,-0)? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
+                calculator.switchSymbol(e.target.textContent);
+                calculator.store1? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
+                calculator.str = '';
             }
             
-            e.target.textContent === '-' && !calculator.str && !calculator.counting? calculator.str = '-0' : calculator.str = '';
-            output.textContent = calculator.str === '-0'? calculator.str : Number(calculator.str);
+            // e.target.textContent === '-' && !calculator.str && !calculator.counting? calculator.str = '-0' : calculator.str = '';
+            // output.textContent = calculator.str === '-0'? calculator.str : Number(calculator.str);
+            output.textContent = Number(calculator.str);
             outputSymbol.textContent = calculator.inputSymbol;
         }else{
             if(e.target.textContent === '='){
