@@ -54,12 +54,12 @@ function calculatorClosure() {
         division(){
             const reg = new RegExp('^00\d+$');
             if(this.counting){
-                this.total = (this.total / this.store1).toFixed(2);
+                this.total = Number((this.total / this.store1).toFixed(2));
             }else{
-                this.total = (this.store1 / this.store2).toFixed(2);
+                this.total = Number((this.store1 / this.store2).toFixed(2));
                 this.counting = true;
             }
-            Number(String(this.total).split('.')[1])? '' : this.total = (this.total/1).toFixed(0);
+            Number(String(this.total).split('.')[1])? '' : this.total = Number((this.total/1).toFixed(0));
 
             this.store1 = 0;
             this.store2 = 0;
