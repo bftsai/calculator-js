@@ -49,9 +49,9 @@ function calculatorClosure() {
         division(){
             const reg = new RegExp('^00\d+$');
             if(this.counting){
-                this.total = (this.total / this.store1).toFixed(2);
+                this.total = Number((this.total / this.store1).toFixed(2));
             }else{
-                this.total = (this.store1 / this.store2).toFixed(2);
+                this.total = Number((this.store1 / this.store2).toFixed(2));
                 this.counting = true;
             }
             Number(String(this.total).split('.')[1])? '' : this.total = (this.total/1).toFixed(0);
@@ -127,12 +127,15 @@ buttonInputArea.addEventListener('click',(e) => {
             }else if(calculator.counting){
                 calculator.switchSymbol(e.target.textContent);
             }else{
-                e.target.textContent === '-' && !calculator.str? '' : calculator.switchSymbol(e.target.textContent);
-                calculator.store1 || Object.is(calculator.store1,-0)? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
+                // e.target.textContent === '-' && !calculator.str? '' : calculator.switchSymbol(e.target.textContent);
+                // calculator.store1 || Object.is(calculator.store1,-0)? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
+                calculator.switchSymbol(e.target.textContent);
+                calculator.store1? calculator.store2 = Number(calculator.str) : calculator.store1 = Number(calculator.str);
             }
             
-            e.target.textContent === '-' && !calculator.str && !calculator.counting? calculator.str = '-0' : calculator.str = '';
-            output.textContent = calculator.str === '-0'? calculator.str : Number(calculator.str);
+            // e.target.textContent === '-' && !calculator.str && !calculator.counting? calculator.str = '-0' : calculator.str = '';
+            // output.textContent = calculator.str === '-0'? calculator.str : Number(calculator.str);
+            output.textContent = Number(calculator.str);
             outputSymbol.textContent = calculator.inputSymbol;
         }else{
             if(e.target.textContent === '='){
