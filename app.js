@@ -25,11 +25,10 @@ function calculatorClosure() {
             this.counting = true;
         },
         minus(){
-            if(this.total || Object.is(this.total,-0) || this.counting){
+            if(this.counting){
                 this.total -= this.store1;
             }else{
-                Object.is(this.store1,-0) ? this.store1 = 0 : '';
-                this.store2<0 ? this.total = this.store1 + this.store2 : this.total = this.store1 - this.store2;;
+                this.total = this.store1 - this.store2;
             }
             this.store1 = 0;
             this.store2 = 0;
